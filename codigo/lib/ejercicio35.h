@@ -8,8 +8,6 @@
 #ifndef HEADERS_EJERCICIO35_H_
 #define HEADERS_EJERCICIO35_H_
 
-#include <stdlib.h>
-#include <stdio.h>
 
 typedef struct{
 	char nombre[20];
@@ -24,6 +22,9 @@ typedef struct {
     void *lazo;
 } pila_t;
 
+#define CONTACTOS "codigo/archivos/contactos.dat"
+
 void ejercicio35();
+void imprimirPersona(persona_t);
 
 #endif /* HEADERS_EJERCICIO35_H_ */
