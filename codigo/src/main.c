@@ -15,6 +15,7 @@ int main(){
 		printf("***TRABAJO PRACTICO 2 - MEMORIA DINAMICA\n");
 		printf("1) EJECUTAR EJERCICIO 35\n");
 		printf("2) EJECUTAR EJERCICIO 36 \n");
+		printf("3) EJECUTAR EJERCICIO 37 \n");
 		printf("0) SALIR \n");
 		scanf("%d",&respuesta);
 		switch (respuesta){
@@ -23,6 +24,9 @@ int main(){
 			break;
 			case 2:
 				ejercicio36();
+			break;
+			case 3:
+				ejercicio37();
 			break;
 		}
 	}while(respuesta!=0);

@@ -9,27 +9,25 @@ tiene una edad mayor a 21 años.
 
 #include "../../lib/compartida.h"
 
-int menu(){
-	int respuesta;
-
-	printf("1) Cargar personas \n");
-	printf("2) Salir \n");
-	scanf("%d",&respuesta);
-	return respuesta;
-}
 
 persona_t pedirDatos(){
 	persona_t persona;
+	fflush(stdin);
 	printf("Ingrese el nombre \n");
 	scanf("%s",persona.nombre);
+	fflush(stdin);
 	printf("Ingrese el apellido \n");
 	scanf("%s",persona.apellido);
+	fflush(stdin);
 	printf("Ingrese la edad \n");
-	scanf("%d",&persona.edad);
+	scanf("%d",&(persona.edad));
+	fflush(stdin);
 	printf("Ingrese el telefono \n");
-	scanf("%ld",&persona.telefono);
+	scanf("%ld",&(persona.telefono));
+	fflush(stdin);
 	printf("Ingrese el mail \n");
 	scanf("%s",persona.mail);
+	fflush(stdin);
 	return persona;
 }
 
@@ -56,23 +54,27 @@ void cargarPersona(pila_t** auxiliar,pila_t** primero){
 }
 
 void cargarPersonaArchivo(persona_t persona){
+	int archivoVacio = 0; // NO
 	FILE* archivo = fopen (CONTACTOS,"rb+");//ABRO EL ARCHIVO
 	if(!archivo){
-		FILE* archivo = fopen (CONTACTOS,"wb+");//SI NO EXISTE LO CREO
+		archivo = fopen (CONTACTOS,"wb+");//SI NO EXISTE LO CREO
 		if (!archivo){
 			printf("Error en la creacion del archivo %s \n",CONTACTOS);
 			return;
 		}
+		archivoVacio = 1;//SI
 	}
-	//ALTA DE ARCHIVO SECUENCIAL
-	//VERIFICO QUE NO EXISTA LA CLAVE,EN ESTE CASO LA CLAVE ES EL NOMBRE Y APELLIDO DE LA PERSONA
-	persona_t personaCargada;
-	fread(&personaCargada,sizeof(personaCargada),1,archivo);
-	while(!feof(archivo)){
-		if (!strcmp(personaCargada.nombre,persona.nombre) && !strcmp(personaCargada.apellido,persona.apellido)){
-			return;// SI YA EXISTE EN EL ARCHIVO NO LA CARGO
-		}
+	if (archivoVacio == 0){
+		//ALTA DE ARCHIVO SECUENCIAL
+		//VERIFICO QUE NO EXISTA LA CLAVE,EN ESTE CASO LA CLAVE ES EL NOMBRE Y APELLIDO DE LA PERSONA
+		persona_t personaCargada;
 		fread(&personaCargada,sizeof(personaCargada),1,archivo);
+		while(!feof(archivo)){
+			if (!strcmp(personaCargada.nombre,persona.nombre) && !strcmp(personaCargada.apellido,persona.apellido)){
+				return;// SI YA EXISTE EN EL ARCHIVO NO LA CARGO
+			}
+			fread(&personaCargada,sizeof(personaCargada),1,archivo);
+		}
 	}
 
 	if(persona.edad > 21){
@@ -110,24 +112,16 @@ void ejercicio35(){
 	pila_t *auxiliar;
 	pila_t *primero=NULL;
 	do{
-		respuesta=menu();
-		switch(respuesta){
-			case 1:
-				while(respuesta){
-					cargarPersona(&auxiliar,&primero);
-					printf("Desea seguir cargando personas ? \n1) SI\n0) SALIR\n");
-					scanf("%d",&respuesta);
-				}
-				imprimirPersonas(&auxiliar,&primero);
-				//verArchivo();
-			break;
-			case 2:
-			break;
-			default:
-				printf("Ingrese una opcion valida \n");
-			break;
-		}
-	}while (respuesta!=2);
+		do{
+			cargarPersona(&auxiliar,&primero);
+			printf("Desea seguir cargando personas ? \n1) SI\n0) SALIR\n");
+			scanf("%d",&respuesta);
+		}while(respuesta != 0);
+		imprimirPersonas(&auxiliar,&primero);
+		//verArchivo();
+		printf("Desea seguir ?\n1)SI\n0)NO\n");
+		scanf("%d",&respuesta);
+	}while (respuesta!=0);
 
 }
 

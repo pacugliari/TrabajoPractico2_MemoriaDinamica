@@ -126,7 +126,7 @@ void ejercicio36(){
 	int respuesta;
 
 	do{
-		printf("1)Cargar Lista 0) Salir\n");
+		printf("1)Cargar Lista\n0) Salir\n");
 		scanf("%d",&respuesta);
 		switch(respuesta){
 		case 1:
@@ -134,7 +134,7 @@ void ejercicio36(){
 			imprimirArchivoOrdenado();
 		break;
 		}
-		printf("Desea seguir ?\n1)SI 0)NO\n");
+		printf("\nDesea seguir ?\n1)SI 0)NO\n");
 		scanf("%d",&respuesta);
 	}while(respuesta);
 }
