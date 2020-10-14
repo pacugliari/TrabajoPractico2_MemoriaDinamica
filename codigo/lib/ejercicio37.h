@@ -27,4 +27,6 @@ typedef struct {
 
 #define DATOS "codigo/archivos/datos.dat"
 
+void ejercicio37();
+
 #endif /* CODIGO_LIB_EJERCICIO37_H_ */

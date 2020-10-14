@@ -12,6 +12,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
 
 
 //---------------------------------------------------------------------
@@ -19,6 +20,9 @@
 #include "../lib/ejercicio35.h"
 #include "../lib/ejercicio36.h"
 #include "../lib/ejercicio37.h"
+#include "../lib/ejercicio38.h"
+#include "../lib/ejercicio39.h"
+#include "../lib/ejercicio40.h"
 
 //------------------------------------------------------------------------
 

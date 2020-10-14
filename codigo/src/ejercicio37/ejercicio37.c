@@ -31,6 +31,7 @@ void cargarDatos(){
 		}
 	}
 	datos_t dato;
+
 	printf("Ingrese la clave o id del registro \n");
 	scanf("%ld",&(dato.clave));
 

@@ -16,6 +16,9 @@ int main(){
 		printf("1) EJECUTAR EJERCICIO 35\n");
 		printf("2) EJECUTAR EJERCICIO 36 \n");
 		printf("3) EJECUTAR EJERCICIO 37 \n");
+		printf("4) EJECUTAR EJERCICIO 38 \n");
+		printf("5) EJECUTAR EJERCICIO 39 \n");
+		printf("6) EJECUTAR EJERCICIO 40 \n");
 		printf("0) SALIR \n");
 		scanf("%d",&respuesta);
 		switch (respuesta){
@@ -27,6 +30,15 @@ int main(){
 			break;
 			case 3:
 				ejercicio37();
+			break;
+			case 4:
+				ejercicio38();
+			break;
+			case 5:
+				ejercicio39();
+			break;
+			case 6:
+				ejercicio40();
 			break;
 		}
 	}while(respuesta!=0);

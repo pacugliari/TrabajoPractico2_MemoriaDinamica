@@ -11,7 +11,7 @@
 #define CODIGO_LIB_EJERCICIO36_H_
 
 
-typedef struct lista{
+typedef struct{
 	persona_t dato;
 	void *anterior;
 	void *siguiente;
