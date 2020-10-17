@@ -25,10 +25,10 @@ void aColar (unsigned char dato,cola_t** primero,cola_t** ultimo){
 	}
 }
 
-void generarCola(cola_t** primero,cola_t** ultimo){
-	int muestra = -127;
+void generarCola(cola_t** primero,cola_t** ultimo,int desde,int hasta){
+	int muestra = desde;
 	unsigned char valorACargar;
-	while (muestra <= 127){
+	while (muestra <= hasta){
 		valorACargar=0;
 		if (muestra < 0){
 			valorACargar = muestra*(-1);//CONVIERTO NUMERO POSITIVO
@@ -70,7 +70,12 @@ void ejercicio38(){
 		scanf("%d",&respuesta);
 		switch(respuesta){
 		case 1:
-			generarCola(&primero,&ultimo);
+			printf("Positivos senoidal: \n");
+			generarCola(&primero,&ultimo,0,127);//0: DESDE, 127: HASTA
+			mostrarValores(&primero);
+			printf("Negativos senoidal: \n");
+			primero=ultimo=NULL;
+			generarCola(&primero,&ultimo,-127,0);
 			mostrarValores(&primero);
 		break;
 		}
