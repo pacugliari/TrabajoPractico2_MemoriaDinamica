@@ -23,6 +23,7 @@
 #include "../lib/ejercicio38.h"
 #include "../lib/ejercicio39.h"
 #include "../lib/ejercicio40.h"
+#include "../lib/ejercicio41.h"
 
 //------------------------------------------------------------------------
 

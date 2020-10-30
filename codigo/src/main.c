@@ -10,38 +10,44 @@
 
 int main(){
 	setvbuf(stdout, NULL, _IONBF, 0);//AGREGADO PARA EVITAR BUG CONSOLA ECLIPSE
-	int respuesta;
+	char respuesta;
 	do{
-		printf("***TRABAJO PRACTICO 2 - MEMORIA DINAMICA\n");
-		printf("1) EJECUTAR EJERCICIO 35\n");
-		printf("2) EJECUTAR EJERCICIO 36 \n");
-		printf("3) EJECUTAR EJERCICIO 37 \n");
-		printf("4) EJECUTAR EJERCICIO 38 \n");
-		printf("5) EJECUTAR EJERCICIO 39 \n");
-		printf("6) EJECUTAR EJERCICIO 40 \n");
-		printf("0) SALIR \n");
-		scanf("%d",&respuesta);
+		printf("***TRABAJO PRACTICO 2 - MEMORIA DINAMICA***\n");
+		printf("\t1) EJECUTAR EJERCICIO 35\n");
+		printf("\t2) EJECUTAR EJERCICIO 36 \n");
+		printf("\t3) EJECUTAR EJERCICIO 37 \n");
+		printf("\t4) EJECUTAR EJERCICIO 38 \n");
+		printf("\t5) EJECUTAR EJERCICIO 39 \n");
+		printf("\t6) EJECUTAR EJERCICIO 40 \n");
+		printf("***SEGUNDA PARTE TP***\n");
+		printf("\t7) EJECUTAR EJERCICIO 41 \n");
+		printf("S) SALIR \n");
+		scanf("%c",&respuesta);
+		fflush(stdin);
 		switch (respuesta){
-			case 1:
+			case '1':
 				ejercicio35();
 			break;
-			case 2:
+			case '2':
 				ejercicio36();
 			break;
-			case 3:
+			case '3':
 				ejercicio37();
 			break;
-			case 4:
+			case '4':
 				ejercicio38();
 			break;
-			case 5:
+			case '5':
 				ejercicio39();
 			break;
-			case 6:
+			case '6':
 				ejercicio40();
 			break;
+			case '7':
+				ejercicio41();
+			break;
 		}
-	}while(respuesta!=0);
+	}while(respuesta!='S' && respuesta != 's');
 
 
 	return 0;
