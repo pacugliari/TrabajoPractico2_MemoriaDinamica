@@ -157,7 +157,7 @@ void ejercicio41(){
 			case 's':
 			case 'S':
 				cargarArchivoRepuestos(primero);
-				//verArchivoRepuestos();
+				verArchivoRepuestos();
 			break;
 		}
 	}while(respuesta!='S' && respuesta!='s');

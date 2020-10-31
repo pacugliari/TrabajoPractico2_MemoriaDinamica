@@ -21,6 +21,7 @@ int main(){
 		printf("\t6) EJECUTAR EJERCICIO 40 \n");
 		printf("***SEGUNDA PARTE TP***\n");
 		printf("\t7) EJECUTAR EJERCICIO 41 \n");
+		printf("\t8) EJECUTAR EJERCICIO 42 \n");
 		printf("S) SALIR \n");
 		scanf("%c",&respuesta);
 		fflush(stdin);
@@ -45,6 +46,9 @@ int main(){
 			break;
 			case '7':
 				ejercicio41();
+			break;
+			case '8':
+				ejercicio42();
 			break;
 		}
 	}while(respuesta!='S' && respuesta != 's');
