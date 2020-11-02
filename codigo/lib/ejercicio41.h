@@ -9,10 +9,10 @@
 #define CODIGO_LIB_EJERCICIO41_H_
 
 typedef struct{
-   long partNumber;
-   long serialNumber;
-   char descripcion[40];
-   char ubicacion[100];
+	long partNumber;
+	long serialNumber;
+	char descripcion[40];
+	char ubicacion[100];
 }repuestos_t;
 
 typedef struct{

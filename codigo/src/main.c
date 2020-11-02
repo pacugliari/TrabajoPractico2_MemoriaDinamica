@@ -23,6 +23,7 @@ int main(){
 		printf("\t7) EJECUTAR EJERCICIO 41 \n");
 		printf("\t8) EJECUTAR EJERCICIO 42 \n");
 		printf("\t9) EJECUTAR EJERCICIO 43 \n");
+		printf("\tA) EJECUTAR EJERCICIO 44 \n");
 		printf("\nS) SALIR \n");
 		scanf("%c",&respuesta);
 		fflush(stdin);
@@ -53,6 +54,9 @@ int main(){
 			break;
 			case '9':
 				ejercicio43();
+			break;
+			case 'A':
+				ejercicio44();
 			break;
 		}
 	}while(respuesta!='S' && respuesta != 's');

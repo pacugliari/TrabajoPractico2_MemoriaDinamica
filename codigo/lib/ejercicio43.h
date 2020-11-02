@@ -15,7 +15,7 @@ typedef struct{
    char cliente[40];
    char descripciondeFalla[200];
    char modelo[65];
-   char fecha[10];
+   char fecha[11];
    char hora[10];
 }repuestos2_t;
 
@@ -30,6 +30,10 @@ typedef struct{
 	void *siguiente;
 }listaRepuesto2_t;
 
+#define ORDEN "codigo/archivos/ordenes.dat"
+
 void ejercicio43();
+void ordenamientoOrdenes (listaRepuesto2_t** primero,listaRepuesto2_t** ultimo,	pilaRepuestos_t** primeroPila);
+void cargarPila(listaRepuesto2_t* primero,pilaRepuestos_t** primeroPila);
 
 #endif /* CODIGO_LIB_EJERCICIO43_H_ */

@@ -1,10 +1,8 @@
 /*
 EJERCICIO 43:
-
 El servicio técnico de CosmeFulanito recibe órdenes de trabajo diarias.
 Las mismas son cargadas en un archivo secuencial por el personal de recepción bajo la siguiente
  estructura de datos:
-
 typedef struct{
    long numeroDeOrden;
    char cliente[40];
@@ -14,7 +12,6 @@ typedef struct{
    char hora[10];
 }repuestos_t;
 Se pide:
-
 Hacer una pila con las órdenes de trabajo de forma tal que la más vieja sea la última en cargarse.
  */
 
@@ -26,6 +23,7 @@ void pedirFecha(char* fecha){
 	char mes [2];
 	char anio [4];
 	//dd/mm/aa
+	fecha[0]='\0';
 	do{
 		printf("Ingrese el dia 1 a 31 \n");
 		gets(dia);
@@ -57,12 +55,14 @@ void pedirFecha(char* fecha){
 	}while (ANIO_ACTUAL < atoi(anio) || 1900 > atoi(anio));
 
 	strcat(fecha,anio);
-	fecha[8]='\0';
+	fecha[10]='\0';
 }
 
 void pedirHora (char* hora){
 	char horas [2];
 	char minutos [2];
+
+	hora[0]='\0';
 
 	do{
 		printf("Ingrese la hora 0 a 23 \n");
@@ -108,7 +108,9 @@ repuestos2_t pedirRepuesto2(){
 	fflush(stdin);
 
 	pedirFecha(producto.fecha);
+	fflush(stdin);
 	pedirHora (producto.hora);
+	fflush(stdin);
 
 	return producto;
 
@@ -121,42 +123,57 @@ void ordenamientoOrdenes (listaRepuesto2_t** primero,listaRepuesto2_t** ultimo,	
 	//GENEERO UNA LISTA PARA A ORDENARLOS DE LA FECHA MAS NUEVA A LA MAS VIEJA
 	//31/10/2020
 	//30/10/2020
+	FILE* archivo = fopen (ORDEN,"rb");
 	listaRepuesto2_t* auxiliar=NULL;
 	listaRepuesto2_t* cursor=NULL;
-
-	auxiliar = (listaRepuesto2_t*)malloc (sizeof (listaRepuesto2_t));
-	auxiliar->dato = pedirRepuesto2();
-
-	if ((*primero)==NULL && (*ultimo)==NULL){ // lista vacia
-		(*primero)=(*ultimo)=auxiliar;
-		auxiliar->anterior = NULL;
-		auxiliar->siguiente = NULL;
-	}else{
-		//BUSCO POSICION
-		cursor = (*primero);
-		while((cursor &&  (0 > strcmp((cursor->dato).fecha,(auxiliar->dato).fecha)) )||
-				(cursor && (0 == strcmp((cursor->dato).fecha,(auxiliar->dato).fecha))
-				&& (0 > strcmp((cursor->dato).hora,(auxiliar->dato).hora)))){//ORDENO ALFABETICAMENTE DESCRIPCION
-			cursor = cursor->siguiente;
-		}
-		if (!cursor){// fin de lista
-			(*ultimo)->siguiente = auxiliar;
-			auxiliar->anterior = (*ultimo);
-			auxiliar->siguiente = NULL;
-			(*ultimo) =auxiliar;
-		}else if (cursor==(*primero)){//inicio de lista
-			auxiliar->siguiente = (*primero);
-			(*primero)->anterior = auxiliar;
-			auxiliar->anterior = NULL;
-			(*primero) = auxiliar;
-		}else{//posicon media
-			cursor = cursor->anterior;
-			auxiliar->siguiente = cursor->siguiente;
-			auxiliar->anterior = cursor;
-			((lista_t*)(cursor->siguiente))->anterior = auxiliar;
-			cursor->siguiente = auxiliar;
-		}
+	repuestos2_t repuesto;
+	if (!archivo){
+		printf("Error en la apertura del archivo %s \n",ORDEN);
+		return;
 	}
+
+	fread(&repuesto,sizeof(repuesto),1,archivo);
+	while(!feof(archivo)){
+		//CARGO EN LA LISTA
+		auxiliar = (listaRepuesto2_t*)malloc (sizeof (listaRepuesto2_t));
+		auxiliar->dato = repuesto;
+
+		if ((*primero)==NULL && (*ultimo)==NULL){ // lista vacia
+			(*primero)=(*ultimo)=auxiliar;
+			auxiliar->anterior = NULL;
+			auxiliar->siguiente = NULL;
+		}else{
+			//BUSCO POSICION
+			cursor = (*primero);
+			while((cursor &&  (0 > strcmp((cursor->dato).fecha,(auxiliar->dato).fecha)) )||
+					(cursor && (0 == strcmp((cursor->dato).fecha,(auxiliar->dato).fecha))
+					&& (0 > strcmp((cursor->dato).hora,(auxiliar->dato).hora)))){//ORDENO ALFABETICAMENTE DESCRIPCION
+				cursor = cursor->siguiente;
+			}
+			if (!cursor){// fin de lista
+				(*ultimo)->siguiente = auxiliar;
+				auxiliar->anterior = (*ultimo);
+				auxiliar->siguiente = NULL;
+				(*ultimo) =auxiliar;
+			}else if (cursor==(*primero)){//inicio de lista
+				auxiliar->siguiente = (*primero);
+				(*primero)->anterior = auxiliar;
+				auxiliar->anterior = NULL;
+				(*primero) = auxiliar;
+			}else{//posicon media
+				cursor = cursor->anterior;
+				auxiliar->siguiente = cursor->siguiente;
+				auxiliar->anterior = cursor;
+				((lista_t*)(cursor->siguiente))->anterior = auxiliar;
+				cursor->siguiente = auxiliar;
+			}
+		}
+
+		//*******************
+		fread(&repuesto,sizeof(repuesto),1,archivo);
+	}
+
+	fclose(archivo);
 
 }
 
@@ -193,6 +210,51 @@ void cargarPila(listaRepuesto2_t* primero,pilaRepuestos_t** primeroPila){
 	}
 }
 
+
+void cargarOrdenes(){
+	char respuesta;
+	repuestos2_t repuesto;
+	repuestos2_t repuestoLeido;
+	int encontrado = 0;
+	int archivoVacio = 0;//NO VACIO
+
+	FILE* archivo = fopen (ORDEN,"rb+");
+	if (!archivo){
+		archivo = fopen (ORDEN,"wb+");
+		if (!archivo){
+			printf("Error en la creacion del archivo %s \n",ORDEN);
+			return;
+		}
+		archivoVacio =1 ;//VACIO
+	}
+	//ALTA DE ARCHIVO SECUENCIAL
+	do{
+		rewind(archivo);
+		encontrado = 0;
+		repuesto = pedirRepuesto2();
+		if (!archivoVacio){
+			fread(&repuestoLeido,sizeof(repuestoLeido),1,archivo);
+			while(!feof(archivo)){
+				if (repuesto.numeroDeOrden == repuestoLeido.numeroDeOrden){
+					printf("El numero de orden ingresado ya esta dado de alta \n");
+					encontrado = 1;// SI YA EXISTE EN EL ARCHIVO NO LA CARGO
+				}
+				fread(&repuestoLeido,sizeof(repuestoLeido),1,archivo);
+			}
+		}
+		if (!encontrado){
+			fwrite(&repuesto,sizeof(repuesto),1,archivo);
+		}
+		printf ("1) Seguir cargando ordenes \n");
+		printf("S) Salir \n");
+		scanf("%c",&respuesta);
+		fflush(stdin);
+	}while (respuesta!='S' && respuesta != 's');
+
+
+	fclose(archivo);
+
+}
 void ejercicio43(){
 	char respuesta;
 	listaRepuesto2_t* primero=NULL;
@@ -200,18 +262,27 @@ void ejercicio43(){
 	pilaRepuestos_t* primeroPila = NULL;
 
 	do{
-		printf("1) Cargar ordenes \n");
+		printf("1) Cargar ordenes en archivo \n");
+		printf("2) Generar pila \n");
+		printf("3) Ver pila \n");
 		printf("S) Salir \n");
 		scanf("%c",&respuesta);
 		fflush(stdin);
 		switch(respuesta){
 		case '1':
+			cargarOrdenes();
+		break;
+		case '2':
 			ordenamientoOrdenes(&primero,&ultimo,&primeroPila);
+			cargarPila(primero,&primeroPila);
+			primero=ultimo=NULL;
+		break;
+		case '3':
+			verPila(primeroPila);
+			primeroPila=NULL;
 		break;
 		case 's':
 		case 'S':
-			cargarPila(primero,&primeroPila);
-			verPila(primeroPila);
 		break;
 		}
 	}while (respuesta != 'S' && respuesta != 's');
