@@ -29,7 +29,7 @@ void generarTarea(pilaRepuestos_t** primeroPila,listaExtracciones_t** primeroExt
 		auxiliar=(*primeroPila);
 		(*primeroPila) = (*primeroPila)->lazo;
 		tarea.repuesto = auxiliar->dato;
-		printf("Ingrese la cantidad \n");
+		printf("Ingrese la cantidad del modelo: %s \n",tarea.repuesto.modelo);
 		scanf("%d",&tarea.cantidad);
 		fflush(stdin);
 		free(auxiliar);
@@ -112,7 +112,7 @@ void vaciarListaOrdenes(listaExtracciones_t* primeroExtrac){
 	}
 }
 
-void ejercicio44(){
+listaExtracciones_t* ejercicio44(){
 	char respuesta;
 	listaRepuesto2_t* primero=NULL;
 	listaRepuesto2_t* ultimo=NULL;
@@ -124,14 +124,16 @@ void ejercicio44(){
 	cargarPila(primero,&primeroPila);
 
 	do{
-		printf("1) Tomar tarea de pila \n");
+		printf("1) Tomar tareas de la pila \n");
 		printf("2) Ver lista \n");
 		printf("S) Salir \n");
 		scanf("%c",&respuesta);
 		fflush(stdin);
 		switch(respuesta){
 		case '1':
-			generarTarea(&primeroPila,&primeroExtrac,&ultimoExtrac);
+			while(primeroPila!=NULL){
+				generarTarea(&primeroPila,&primeroExtrac,&ultimoExtrac);
+			}
 		break;
 		case '2':
 			verListaExtracciones(primeroExtrac);
@@ -139,9 +141,11 @@ void ejercicio44(){
 		case 's':
 		case 'S':
 			//LIBERO MEMORIA
-			vaciarPilaOrdenes(primeroPila);
-			vaciarListaOrdenes(primeroExtrac);
+			//vaciarPilaOrdenes(primeroPila);
+			//vaciarListaOrdenes(primeroExtrac); SE VACIA EN EL EJERCICIO 35
 		break;
 		}
 	}while(respuesta!= 'S' && respuesta!= 's');
+
+	return primeroExtrac;
 }

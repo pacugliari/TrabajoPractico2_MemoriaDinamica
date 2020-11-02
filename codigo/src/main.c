@@ -10,6 +10,7 @@
 
 int main(){
 	setvbuf(stdout, NULL, _IONBF, 0);//AGREGADO PARA EVITAR BUG CONSOLA ECLIPSE
+	listaExtracciones_t* primeroExtrac=NULL;
 	char respuesta;
 	do{
 		printf("\n***TRABAJO PRACTICO 2 - MEMORIA DINAMICA***\n\n");
@@ -24,6 +25,7 @@ int main(){
 		printf("\t8) EJECUTAR EJERCICIO 42 \n");
 		printf("\t9) EJECUTAR EJERCICIO 43 \n");
 		printf("\tA) EJECUTAR EJERCICIO 44 \n");
+		printf("\tB) EJECUTAR EJERCICIO 45 \n");
 		printf("\nS) SALIR \n");
 		scanf("%c",&respuesta);
 		fflush(stdin);
@@ -56,7 +58,11 @@ int main(){
 				ejercicio43();
 			break;
 			case 'A':
-				ejercicio44();
+				primeroExtrac = ejercicio44();
+			break;
+			case 'B':
+				ejercicio45(primeroExtrac);
+				primeroExtrac = NULL;
 			break;
 		}
 	}while(respuesta!='S' && respuesta != 's');

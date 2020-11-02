@@ -27,6 +27,7 @@
 #include "../lib/ejercicio42.h"
 #include "../lib/ejercicio43.h"
 #include "../lib/ejercicio44.h"
+#include "../lib/ejercicio45.h"
 
 //------------------------------------------------------------------------
 

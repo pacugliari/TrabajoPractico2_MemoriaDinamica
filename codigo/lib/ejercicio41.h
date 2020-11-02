@@ -13,6 +13,7 @@ typedef struct{
 	long serialNumber;
 	char descripcion[40];
 	char ubicacion[100];
+	int cantidad;//CAMPO PARA EJERCICIO 45
 }repuestos_t;
 
 typedef struct{

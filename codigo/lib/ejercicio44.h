@@ -19,6 +19,8 @@ typedef struct{
 	void *siguiente;
 }listaExtracciones_t;
 
-void ejercicio44();
+listaExtracciones_t* ejercicio44();
+void generarTarea(pilaRepuestos_t** primeroPila,listaExtracciones_t** primeroExtrac,listaExtracciones_t** ultimoExtrac);
+void verListaExtracciones(listaExtracciones_t* primero);
 
 #endif /* CODIGO_LIB_EJERCICIO44_H_ */

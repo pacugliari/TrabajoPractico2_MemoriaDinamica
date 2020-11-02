@@ -33,15 +33,18 @@ repuestos_t pedirRepuesto(){
 	printf("Ingrese la ubicacion \n");
 	gets(producto.ubicacion);
 	fflush(stdin);
+	printf("Ingrese la cantidad \n");
+	scanf("%d",&producto.cantidad);
+	fflush(stdin);
 	return producto;
 }
 
 void verListaRepuestos(listaRepuesto_t* primero){
 
 	listaRepuesto_t* cursor = primero;
-	printf("N°PARTE\t\tN°SERIAL\t\tDESCRIPCION\t\tUBICACION\n");
+	printf("N°PARTE\t\tN°SERIAL\t\tCANTIDAD\t\tDESCRIPCION\t\tUBICACION\n");
 	while(cursor){
-		printf("%-7ld\t\t%-8ld\t\t%-20s\t%-50s\n",cursor->dato.partNumber,cursor->dato.serialNumber,cursor->dato.descripcion,cursor->dato.ubicacion);
+		printf("%-7ld\t\t%-8ld\t\t%-8d\t\t%-20s\t%-50s\n",cursor->dato.partNumber,cursor->dato.serialNumber,cursor->dato.cantidad,cursor->dato.descripcion,cursor->dato.ubicacion);
 		cursor = cursor->siguiente;
 	}
 }
@@ -129,11 +132,11 @@ void verArchivoRepuestos(){
 		printf("Error apertura archivo %s, puede que no exista \n",STOCK);
 		return;
 	}
-	printf("N°PARTE\t\tN°SERIAL\t\tDESCRIPCION\t\tUBICACION\n");
+	printf("N°PARTE\t\tN°SERIAL\t\tCANTIDAD\t\tDESCRIPCION\t\tUBICACION\n");
 	repuestos_t repuesto;
 	fread(&repuesto,sizeof(repuesto),1,archivo);
 	while(!feof(archivo)){
-		printf("%-7ld\t\t%-8ld\t\t%-20s\t%-50s\n",repuesto.partNumber,repuesto.serialNumber,repuesto.descripcion,repuesto.ubicacion);
+		printf("%-7ld\t\t%-8ld\t\t%-8d\t\t%-20s\t%-50s\n",repuesto.partNumber,repuesto.serialNumber,repuesto.cantidad,repuesto.descripcion,repuesto.ubicacion);
 		fread(&repuesto,sizeof(repuesto),1,archivo);
 	}
 	fclose(archivo);
